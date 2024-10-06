@@ -1,0 +1,8 @@
+{
+  "name": "autoton",
+  "main": "app.js",
+  "ignore": ["build"],
+  "packageName": "com.autoton",
+  "versionName": "1.0.0",
+  "versionCode": 1
+}
