@@ -26,13 +26,20 @@ function checkIn() {
     }
   }
 }
-
+function spin() {
+  if (utils.seqenceClick([/Spin/])) {
+    for (let i = 0; i < 5; i++) {
+    press(238, 633, 70);
+    sleep(5000);
+    }
+  }
+}
 // utils.checkWidget(0, 190, 86, 295);
 function start() {
+  sleep(3000);
   utils.circleClick(/Claim/);
   checkIn();
   spin();
-
   // sleep(2000);
 }
 module.exports = { start };

@@ -14,7 +14,7 @@ function start() {
 }
 function clickChicken() {
   let rt = utils.ocrMatches(/.*L[Ii][CO]K.*/, 10, 3, 0, 0, -1);
-  log(rt.length);
+  // log(rt.length);
   for (let i = 0; i < rt.length; i++) {
     let x = rt[i].bounds.centerX();
     let y = rt[i].bounds.centerY() + 50;

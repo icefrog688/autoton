@@ -11,6 +11,7 @@ function play() {
   log("start play");
   let img, imgDest, rt;
   imgDest = images.read(files.join(__dirname, "snow.png"));
+  let dog = images.read(files.join(__dirname, "dog.png"));
   for (let j = 0; j < 5000; j++) {
     if (img) img.recycle();
     img = captureScreen();
@@ -18,6 +19,18 @@ function play() {
       region: [0, 100],
       threshold: 0.7,
       max: 10,
+      level: 1,
+    });
+    // log("time", Date.now() - start, rt.matches.length);
+    // for (let i = 0; i < rt.matches.length; i++) {
+    for (let i = rt.matches.length - 1; i >= 0; i--) {
+      press(rt.matches[i].point.x + 20, rt.matches[i].point.y + 45, 10);
+      // log(rt.matches[i].point.x + 20, rt.matches[i].point.y + 20, i);
+    }
+    rt = images.matchTemplate(img, dog, {
+      region: [0, 100],
+      threshold: 0.45,
+      max: 5,
       level: 1,
     });
     // log("time", Date.now() - start, rt.matches.length);
@@ -44,7 +57,7 @@ function play() {
 function start() {
   utils.circleClick(/.*Claim.*|.*Continue.*|.*Start.*/);
   // for (let i = 0; i < 2; i++) {
-    play();
+  // play();
   // }
 }
 

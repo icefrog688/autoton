@@ -33,6 +33,7 @@ function refull(which) {
         }
       }
     }
+    back();
   }
 }
 function airdrop() {
@@ -55,7 +56,7 @@ function checkIn() {
     p = className("android.widget.TextView").text("Daily Login").findOne(1000);
     if (p) {
       p.click();
-      sleep(1000);
+      sleep(5000);
       p = className("android.widget.TextView").text("Claim").findOne(1000);
       if (p) {
         p.click();
@@ -71,6 +72,7 @@ function checkIn() {
             .click();
         }
       }
+      back();
     }
   }
 }
@@ -98,13 +100,49 @@ function clickAds() {
     //   sleep(1000);
   }
 }
+function study() {
+  if (utils.seqenceClick([/STUDY/])) {
+    let groups = ["Blockchain", "Application", "Terms", "Event"];
+    for (let i = 0; i < groups.length; i++) {
+      let group = groups[i];
+      utils.seqenceClick(new RegExp(group));
+      let cardReg = /.*lvl \d+/;
+      utils.upgradeCards(
+        cardReg,
+        /Go ahead|.*Luck.*/,
+        Number.MAX_SAFE_INTEGER,
+        10000,
+        {
+          getPrice: (p) => {
+            let result = p.parent().child(1).text();
+            let price = utils.parseNumberString(result);
+            return price;
+          },
+          getTotal: () => {
+            let p = text("TapCoins Bounty").findOnce();
+            let total = 0;
+            if (p) {
+              let result = p.parent().child(1).text();
+              total = utils.parseNumberString(result);
+            }
+            return total;
+          },
+          upgradeClose: () => {},
+        }
+      );
+    }
+    back();
+  }
+}
 function start() {
   utils.circleClick(/Thank You|GO|Airdrop/);
-  taptap();
-  refull("Turbo");
-  refull("Full Energy");
-  taptap();
+  // taptap();
+  // refull("Turbo");
+  // refull("Full Energy");
+  // taptap();
+
   checkIn();
+  study();
   airdrop();
 }
 function findTarget(target) {

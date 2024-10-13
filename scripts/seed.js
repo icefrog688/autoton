@@ -6,12 +6,15 @@ function checkIn() {
       p = p.parent().findOne(text("Start")); // p.click();
       click(p);
       sleep(3000);
-      utils.seqenceClick([/Day .*/,/Claim ticket/]);
+      utils.seqenceClick([/Day .*/, /Claim ticket/]);
     }
   }
 }
 function start() {
   utils.circleClick(/Claim.*/);
+  // bounds("(225,472,295,544)")
+  press((225 + 295) / 2, (472 + 544) / 2, 70);
+  utils.seqenceClick([/I understand/]);
   checkIn();
 }
 module.exports = { start };

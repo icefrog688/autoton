@@ -2,6 +2,7 @@ let utils = require("./utils.js");
 function testnet() {
   utils.seqenceClick([/Testnet/]);
   scrollDown();
+  sleep(2000);
   if (utils.seqenceClick([/Faucet/, /Send Me TON/])) {
     sleep(2000);
     click(desc("Go back").findOne(100));
@@ -39,10 +40,25 @@ function daily() {
   }
 }
 
+function earn() {
+  let groups = [/One-Time/, /Partner/, /Event/];
+  for (let i = 0; i < groups.length; i++) {
+    let group = groups[i];
+    utils.seqenceClick([/Earn/, new RegExp(group)]);
+    utils.doTasks(/Go/, {
+      getTitle: (p) => {
+        let tagIndex = p.parent().children().indexOf(p) - 2;
+        return p.parent().child(tagIndex).text();
+      },
+    });
+  }
+}
+
 function start() {
-  // utils.seqenceClick([/Quests/, /GO/]);
+  utils.seqenceClick([/Join.*/]);
   daily();
   testnet();
+  earn();
 }
 
 module.exports = { start };

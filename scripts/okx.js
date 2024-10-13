@@ -1,7 +1,9 @@
 const utils = require("./utils");
 function start() {
   utils.circleClick(/.*继续游戏.*/);
-
+  if (textMatches(/.*高风险.*/).exists()) {
+    return;
+  }
   let reg = /\d+ \/ \d+/;
   do {
     p = textMatches(reg).findOne(1000);

@@ -1,10 +1,12 @@
 let utils = require("./utils.js");
 function holdCoin() {
-  let p = utils.findWidgetInSize("android.view.View", 383, 382, 5000);
+  let p = text("Hold to Start").findOne(5000);
   if (p) {
+    p = p.parent().child(p.parent().children().indexOf(p) + 1);
     press(p.bounds().centerX(), p.bounds().centerY(), 40 * 1000);
     press(p.bounds().centerX(), p.bounds().centerY(), 20 * 1000);
-    p = utils.findWidgetInSize("android.view.View", 39, 39, 10 * 1000);
+    p = text("Activate Bonus").findOne(10 * 1000);
+    p = p.parent().child(0);
     if (p) {
       p.click();
       sleep(1000);
@@ -16,11 +18,11 @@ function holdCoin() {
 function roulette() {
   log("roulette");
   let p = text("Tap To Spin").findOne(5000);
-  log(p);
   if (p) {
     p.click();
     sleep(5000);
-    p = utils.findWidgetInSize("android.view.View", 39, 39, 10 * 1000);
+    p = text("Activate Bonus").findOne(10 * 1000);
+    p = p.parent().child(0);
     if (p) {
       p.click();
       sleep(1000);
@@ -30,14 +32,13 @@ function roulette() {
   }
 }
 function swipeCoin() {
-  let start = Date.now();
-  let p = utils.findWidgetInSize("android.view.View", 480, 430, 10 * 1000);
-  log(Date.now() - start);
-
+  let p = text("Swipe to Start").findOne(5000);
   if (p) {
+    p = p.parent().child(p.parent().children().indexOf(p) + 1);
+
     let boundRect = p.bounds();
     let step = 100;
-    let speed = 550;
+    let speed = 350;
     let start = Date.now();
     while (Date.now() - start < 62 * 1000) {
       for (let i = boundRect.top + step / 2; i < boundRect.bottom; i += step) {
@@ -45,7 +46,8 @@ function swipeCoin() {
         sleep(20);
       }
     }
-    p = utils.findWidgetInSize("android.view.View", 39, 39, 10 * 1000);
+    p = text("Activate Bonus").findOne(10 * 1000);
+    p = p.parent().child(0);
     if (p) {
       p.click();
       sleep(1000);
@@ -55,25 +57,22 @@ function swipeCoin() {
   }
 }
 function playGame(gamename) {
+  log("playGame", gamename);
   let p = classNameMatches(/android.widget.TextView/)
     .text("Games")
     .findOne(1000);
   if (p) {
-    log("click games");
     p.click();
     sleep(1000);
     p = text(gamename).findOne(1000);
-    log(gamename, p);
     if (p) {
       p = p.parent().children().findOne(text("Play"));
       if (p) {
         p.click();
         sleep(3000);
-        if (textMatches(/(Remind me)|(Don't remind me)/).findOne(1000)) {
-          p = utils.findWidgetInSize("android.view.View", 39, 39, 1000);
-          if (p) {
-            p.click();
-          }
+        p = textMatches(/The next game starts in.*/).findOne(1000);
+        if (p) {
+          click(p.parent().child(0));
           sleep(1000);
           return;
         } else {

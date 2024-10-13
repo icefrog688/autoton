@@ -22,7 +22,7 @@ function upgradeCard() {
     "trigger-businessAndGov",
     "trigger-specials",
   ];
-  let priceLimit = 20 * 1000;
+  let priceLimit = 50 * 1000;
   for (let i = 0; i < groupIds.length; i++) {
     let groupId = groupIds[i];
     utils.seqenceClick([/Work/, /Mine/]);

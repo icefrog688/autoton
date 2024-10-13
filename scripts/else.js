@@ -76,46 +76,48 @@ function daily() {
 function upgradeCard() {
   let groupIds = ["Thug", "OnlyFun", "Musician", "Delivery", "IT", "Gamer"];
   let priceLimit = Number.MAX_SAFE_INTEGER; // 输出：9007199254740991;
-  for (let i = 5; i < groupIds.length; i++) {
+  for (let i = 0; i < groupIds.length; i++) {
     let groupId = groupIds[i];
-    utils.seqenceClick([/Career/]);
-    let p = text(groupId).findOne(1000);
+    let p = classNameMatches(/.*Text.*/)
+    .textMatches(/Career/)
+    .findOne(1000);
     if (p) {
-      p.click();
-      sleep(3000);
-      let cardReg = /.*lvl \d+/;
-      utils.upgradeCards(cardReg, /Get/, priceLimit, 3000, {
-        getPrice: (p) => {
-          let result = p.parent().child(5).child(0).text();
-          let price = utils.parseNumberString(result);
-          return price;
-        },
-        getTotal: () => {
-          let p = textContains("Career").findOne(1000);
-          let total = 0;
-          if (p) {
-            let text = p
-              .parent()
-              .child(6)
-              .child(0)
-              .child(0)
-              .text()
-              .replace(/[‘’\s]/g, "");
-            log(text);
-            total = parseFloat(text) || 0;
-          }
-          return total;
-        },
-        upgradeClose: () => {
-          press(100, 185, 50);
-
-        },
-      });
+      click(p);
+      sleep(5000);
+      if (utils.seqenceClick([/Career/, new RegExp(groupId)])) {
+        let cardReg = /.*lvl \d+/;
+        utils.upgradeCards(cardReg, /Get/, priceLimit, 3000, {
+          getPrice: (p) => {
+            let result = p.parent().child(5).child(0).text();
+            let price = utils.parseNumberString(result);
+            return price;
+          },
+          getTotal: () => {
+            p = textContains("Career").findOne(1000);
+            let total = 0;
+            if (p) {
+              let text = p
+                .parent()
+                .child(6)
+                .child(0)
+                .child(0)
+                .text()
+                .replace(/[‘’\s]/g, "");
+              log(text);
+              total = parseFloat(text) || 0;
+            }
+            return total;
+          },
+          upgradeClose: () => {
+            press(100, 185, 50);
+          },
+        });
+      }
     }
-    break;
   }
 }
 function start() {
+  // sleep(10000);
   utils.circleClick(/Close|Ok/);
   // taptap();
   // fullEnergy();

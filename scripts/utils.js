@@ -635,7 +635,7 @@ function welcomeClick(reg) {
 function circleClick(reg, count) {
   count = count || 10;
   textMatches(reg).findOne(3000);
-  while (textMatches(reg).exists() && count > 0) {
+  while (textMatches(reg).enabled(true).exists() && count > 0) {
     let p = textMatches(reg).findOne(1000);
     click(p);
     log("click", p.text(), p.bounds());
@@ -686,7 +686,7 @@ function parseNumberString(numStr) {
     b: 1e9,
     t: 1e12,
   };
-
+  numStr = numStr.replace(/[‘’,]/g, "");
   const unit = numStr.slice(-1).toLowerCase();
   const number = parseFloat(numStr.slice(0, -1));
   if (units[unit]) {
@@ -720,17 +720,17 @@ function cleanTask(taskName) {
     p.click();
     sleep(1000);
   }
+
   let ps = desc("Go back").find();
   try {
-    for (let i = ps.length - 1; i >= 0; i++) {
-      log("1");
-    p = ps[i];
-    let title = p.parent().child(1).text();
-    if (title != taskName) {
-      click(p);
-      sleep(1000);
-    } else {
-      break;
+    for (let i = ps.length - 1; i >= 0; i--) {
+      p = ps[i];
+      let title = p.parent().child(1).text();
+      if (title != taskName) {
+        click(p);
+        sleep(1000);
+      } else {
+        break;
       }
     }
   } catch (e) {
@@ -739,12 +739,26 @@ function cleanTask(taskName) {
 
   p = desc(`Web tabs ${taskName}`).findOne(1000);
   if (p) {
-    log("2")
-
     click(p);
     sleep(1000);
   }
 }
+function doTasks(goReg, funs) {
+  let ps = textMatches(goReg).find();
+  for (let i = 0; i < ps.length; i++) {
+    let p = ps[i];
+    let title = funs.getTitle(p);
+    if (title.match(/Deposit|OKX.*/)) {
+      continue;
+    }
+    log("do", title);
+    click(p);
+    sleep(3000);
+    utils.cleanTask("DuckChain");
+    break;
+  }
+}
+
 module.exports = {
   click,
   screenHeight,
@@ -772,4 +786,5 @@ module.exports = {
   launchApp,
   upgradeCards,
   cleanTask,
+  doTasks,
 };

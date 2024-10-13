@@ -9,7 +9,7 @@ function checkIn() {
   }
 }
 function start() {
-  utils.seqenceClick([/Home/, /ton_icon Claim/]);
+  // utils.seqenceClick([/Home/, /ton_icon Claim/]);
   checkIn();
 }
 

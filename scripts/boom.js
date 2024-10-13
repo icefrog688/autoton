@@ -11,6 +11,7 @@ function doIncome() {
       utils.seqenceClick(/Invest/);
     }
   }
+  back();
 }
 function doTask(name, widget) {
   widget = widget || "android.widget.Button";
@@ -20,7 +21,6 @@ function doTask(name, widget) {
   }
   return false;
 }
-
 
 function doTaskAll() {
   utils.seqenceClick([/Tasks/]);

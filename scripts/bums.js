@@ -7,10 +7,10 @@ function checkIn() {
   back();
 }
 function employ() {
-  utils.seqenceClick([/College/, /Expedition/]);
+  utils.seqenceClick([/City/, /Expedition/]);
   let p = text("Free").findOne(3000);
   if (p) {
-    p = p.parent().findOne(text("Employ"));
+    p = p.parent().findOne(textMatches(/.*Employ/));
     if (p) {
       p.click();
       sleep(3000);
@@ -18,10 +18,16 @@ function employ() {
   }
   back();
 }
+function box() {
+  utils.seqenceClick([/City/, /MysteryBox/, /^1$/, /NICE!/]);
+  back();
+}
+
 function start() {
   utils.circleClick(/(Nice)/);
-  utils.doTap(240, 540);
+  // utils.doTap(240, 540);
   employ();
+  box();
   checkIn();
 }
 

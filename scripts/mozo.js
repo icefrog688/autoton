@@ -12,13 +12,21 @@ function earn() {
     limit = utils.parseNumberString(num);
     return limit;
   });
-  utils.seqenceClick([/  Claim/, /OK/]);
+  utils.seqenceClick([/.*Claim/, /OK/]);
 }
 
 function checkIn() {
-  if (utils.seqenceClick([/Daily Check-in/, /Claim/, /Share to Claim/])) {
-    back();
-    sleep(1000);
+  if (utils.seqenceClick([/Daily Check-in/])) {
+    let p = text("Come back tomorrow").findOne(1000);
+    if (!p) {
+      let ps = textMatches(/.*Claim/).find();
+      let p = ps[ps.length - 1];
+      click(p);
+      sleep(3000);
+      utils.seqenceClick([/Share to Claim/]);
+      back();
+      sleep(3000);
+    }
   }
   let p = text("Come back tomorrow").findOne(1000);
   if (p) {

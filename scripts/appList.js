@@ -1,11 +1,11 @@
 apps = [
-  {
-    name: "banana",
-    task: require("./banana.js"),
-    addr: "https://t.me/OfficialBananaBot/banana?startapp=referral=ET7BQT",
-    interval: 3600 * 1000,
-    launch: /\d+\/\d+/,
-  },
+  // {
+  //   name: "banana",
+  //   task: require("./banana.js"),
+  //   addr: "https://t.me/OfficialBananaBot/banana?startapp=referral=ET7BQT",
+  //   interval: 3600 * 1000,
+  //   launch: /\d+\/\d+/,
+  // },
   // {
   //   name: "bby",
   //   task: require("./bby.js"),
@@ -50,13 +50,13 @@ apps = [
     launch: /Work/,
     extra: /Start app/,
   },
-  // {
-  //   name: "corn",
-  //   task: require("./corn.js"),
-  //   addr: "https://t.me/Corn/PlayCornBattles?startapp=1000710062",
-  //   interval: 3600 * 1000,
-  //   launch: "MAIN",
-  // },
+  {
+    name: "corn",
+    task: require("./corn.js"),
+    addr: "https://t.me/Corn/PlayCornBattles?startapp=1000710062",
+    interval: 3600 * 1000,
+    launch: "MAIN",
+  },
   {
     name: "duck",
     task: require("./duck.js"),
@@ -69,14 +69,14 @@ apps = [
     task: require("./duckChain.js"),
     addr: "https://t.me/DuckChain_bot/quack?startapp=gqTXhV4M",
     interval: 3600 * 1000,
-    launch: /Home/,
+    launch: /Home|Join.*/,
   },
   {
     name: "else",
     task: require("./else.js"),
     addr: "https://t.me/else_app_bot/start?startapp=ref=elsexcfmt2y1",
     interval: 3600 * 1000,
-    launch: /.*Frens.*/,
+    launch: /.*Career.*/,
   },
   {
     name: "freedogs",
@@ -128,7 +128,7 @@ apps = [
     addr: "https://t.me/major/start?startapp=1000710062",
     interval: 3600 * 1000,
     launch:
-      /(Take Bonus.*)|(.*Boost Your Rank.*)|(.*Donate Rating.*)|(.*Your Wall.*)/,
+      /(Take Bonus.*)|(.*Boost Your Rank.*)|(.*Donate Rating.*)|(.*Your Wall.*)|Top/,
   },
   {
     name: "mozo",
@@ -189,7 +189,7 @@ apps = [
     task: require("./tomarket.js"),
     addr: "https://t.me/Tomarket_ai_bot/app?startapp=0000gW9c",
     interval: 3600 * 1000,
-    launch: /(Continue)|(Start farming)|(Play now)/,
+    launch: /(Continue)|(Start farming)|(Play now)|Harvest/,
   },
   {
     name: "uxlink",
@@ -205,6 +205,27 @@ apps = [
     interval: 3600 * 1000,
     launch: /.*/,
   },
+  {
+    name: "okx",
+    task: require("./okx.js"),
+    addr: "https://t.me/OKX_official_bot/OKX_Racer?startapp=linkCode_55034885",
+    interval: 3600 * 1000,
+    launch: /.*上涨.*/,
+  },
+  {
+    name: "netcoin",
+    task: require("./netcoin.js"),
+    addr: "https://t.me/layernet_netcoin_bot/netcoin?start=1000710062",
+    interval: 3600 * 1000,
+    launch: /DOGS/,
+  },
+  // {
+  //   name: "cat",
+  //   task: require("./cat.js"),
+  //   addr: "https://t.me/catsgang_bot/join?startapp=cGdUAG-kUXqnJuxLNbOk3",
+  //   interval: 3 * 3600 * 1000,
+  //   launch: /Cats & Frens/,
+  // },
 ];
 
 module.exports = apps;

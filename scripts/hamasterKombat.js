@@ -122,16 +122,16 @@ function mineCards() {
   }
 }
 function start() {
-  // utils.circleClick(
-  //   /Whats new.*|How many tokens.*|Thanks.*|What else.*|Go!|Next|Play interlude.*|Thank you.*/
-  // );
-  // // taptap();
-  // // refull();s
-  // // checkIn();
+  utils.circleClick(
+    /Whats new.*|How many tokens.*|Thanks.*|What else.*|Go!|Next|Play interlude.*|Thank you.*/
+  );
+  // taptap();
+  // refull();s
+  // checkIn();
 
-  // games();
+  games();
   mineCards();
-  // earn();
+  earn();
 }
 function morse(input) {
   const morse = [
